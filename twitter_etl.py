@@ -20,5 +20,8 @@ auth = tweepy.OAuth1UserHandler(
 
 # Creating an API object
 api = tweepy.API(auth)
-api.user_timeline(user_id='@elonmusk',
-                  count=200)
+tweets = api.user_timeline(user_id='@elonmusk',
+                           count=200,
+                           include_rts=False,
+                           tweet_mode='extended')
+print(tweets)
