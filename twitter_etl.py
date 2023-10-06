@@ -6,22 +6,25 @@ import s3fs
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
-consumer_key = os.getenv("CONSUMER_KEY")
-consumer_secret = os.getenv("CONSUMER_SECRET")
-access_token = os.getenv("ACCESS_TOKEN")
-access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
 
-# Twitter authentification
-auth = tweepy.OAuth1UserHandler(
-    consumer_key, consumer_secret, access_token, access_token_secret
-)
+def get_credentials():
+    # Load environment variables
+    load_dotenv()
+    consumer_key = os.getenv("CONSUMER_KEY")
+    consumer_secret = os.getenv("CONSUMER_SECRET")
+    access_token = os.getenv("ACCESS_TOKEN")
+    access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
 
-# Creating an API object
-#api = tweepy.API(auth)
-#tweets = api.user_timeline(user_id='@elonmusk',
-#                           count=200,
-#                           include_rts=False,
-#                          tweet_mode='extended')
-#print(tweets)
+
+def connect_twitter_api(consumer_key, consumer_secret, access_token, access_token_secret):
+    # Twitter authentication
+    auth = tweepy.OAuth1UserHandler(
+        consumer_key, consumer_secret, access_token, access_token_secret
+    )
+    return auth
+
+
+def get_tweets(auth, tweets_filename):
+    # Creating an API object
+    api = tweepy.API(auth)
+    tweets = pd.read_csv(tweets_filename, header=0)

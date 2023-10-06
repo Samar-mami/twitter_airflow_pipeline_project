@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 pandas = "*"
 tweepy = "*"
+jupyter = "*"
+apache-airflow = "*"
 
 [dev-packages]
 
